@@ -16,10 +16,9 @@ export default class NewsApiService {
     //     this.incrementPage();
     //     return data.hits;
     //   });
-debugger
  const response = await axios(
-      `${URL}?key=${KEY}&q=${this.searchQuery}&${searchSettings}`
-    )
+   `${URL}?key=${KEY}&q=${this.searchQuery}&${searchParams}`
+ );
 
      if (response.status === 200) {
        return response.data;
