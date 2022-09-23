@@ -1,4 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './news-api';
 import galleryTpl from './markup/create-markup.hbs';
 
@@ -11,6 +13,10 @@ const refs = {
 };
 
 const API = new NewsApiService();
+var galleryViewer = new SimpleLightbox('.photo-card a', {
+  captionDelay: 250,
+  captionsData: 'alt',
+});
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.buttonLoadMore.addEventListener('click', onLoadMore);
@@ -47,7 +53,7 @@ function onLoadMore() {
 
 function appendPicturesMarkup(hits) {
   refs.galleryList.insertAdjacentHTML('beforeend', galleryTpl(hits));
-  Notify
+  galleryViewer.refresh();
 }
 
 function clearMarkup() {
