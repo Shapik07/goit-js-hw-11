@@ -1,4 +1,7 @@
 import NewsApiService from './news-api';
+import galleryTpl from './markup/create-markup.hbs';
+
+const Handlebars = require('handlebars');
 
 const refs = {
   searchForm: document.querySelector('.search-form'),
@@ -13,12 +16,25 @@ refs.buttonLoadMore.addEventListener('click', onLoadMore);
 
 function onSearch(e) {
   e.preventDefault();
+  clearMarkup();
 
-  API.query = e.currentTarget.elements.searchQuery.value;
+  API.query = e.currentTarget.elements.searchQuery.value.trim();
+  if (!API.query) {
+    return;
+  }
+  
   API.resetPage();
-  API.fetchImages();
+  API.fetchImages().then(appendPicturesMarkup);
 }
 
 function onLoadMore() {
-  API.fetchImages();
+  API.fetchImages().then(appendPicturesMarkup);
+}
+
+function appendPicturesMarkup(hits) {
+  refs.galleryList.insertAdjacentHTML('beforeend', galleryTpl(hits));
+}
+
+function clearMarkup() {
+  refs.galleryList.innerHTML = '';
 }
