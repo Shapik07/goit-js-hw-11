@@ -7,7 +7,7 @@ export default class NewsApiService {
   fetchImages() {
     const url = 'https://pixabay.com/api/';
     const KEY = '30097880-73ac2834789f98742941535c7';
-    let searchSettings = `per_page=40&image_type=photo&orientation=horizontal&safesearch=true$page=${this.page}`;
+    let searchSettings = `per_page=40&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}`;
 
      return fetch(`${url}?key=${KEY}&q=${this.searchQuery}&${searchSettings}`)
       .then(result => result.json())

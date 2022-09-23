@@ -22,12 +22,15 @@ function onSearch(e) {
   if (!API.query) {
     return;
   }
-  
+
   API.resetPage();
   API.fetchImages().then(appendPicturesMarkup);
 }
 
 function onLoadMore() {
+   if (!API.query) {
+     return;
+   }
   API.fetchImages().then(appendPicturesMarkup);
 }
 
