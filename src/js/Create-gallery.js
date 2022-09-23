@@ -44,11 +44,19 @@ function onSearch(e) {
   });
 }
 
-function onLoadMore() {
+function onLoadMore(hits) {
   if (!API.query) {
     return;
   }
-  API.fetchImages().then(appendPicturesMarkup);
+
+  API.fetchImages().then((hits) => {
+    if (hits.length === 0) {
+       Notify.info(
+         'We are sorry, but you have reached the end of search results.'
+       );
+    }
+    appendPicturesMarkup(hits)
+  });
 }
 
 function appendPicturesMarkup(hits) {
