@@ -1,3 +1,4 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import NewsApiService from './news-api';
 import galleryTpl from './markup/create-markup.hbs';
 
@@ -24,18 +25,29 @@ function onSearch(e) {
   }
 
   API.resetPage();
-  API.fetchImages().then(appendPicturesMarkup);
+  API.fetchImages().then((hits) => {
+    if (hits.length === 0) {
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      ) 
+    } else {
+      Notify.success('Hooray! We found totalHits images');
+    }
+
+    appendPicturesMarkup(hits);
+  });
 }
 
 function onLoadMore() {
-   if (!API.query) {
-     return;
-   }
+  if (!API.query) {
+    return;
+  }
   API.fetchImages().then(appendPicturesMarkup);
 }
 
 function appendPicturesMarkup(hits) {
   refs.galleryList.insertAdjacentHTML('beforeend', galleryTpl(hits));
+  Notify
 }
 
 function clearMarkup() {
