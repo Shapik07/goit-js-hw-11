@@ -1,8 +1,10 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+
 import NewsApiService from './news-api';
 import galleryTpl from './markup/create-markup.hbs';
+import 'infinite-scroll';
 
 const Handlebars = require('handlebars');
 
@@ -31,11 +33,11 @@ function onSearch(e) {
   }
 
   API.resetPage();
-  API.fetchImages().then((hits) => {
+  API.fetchImages().then(hits => {
     if (hits.length === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
-      ) 
+      );
     } else {
       Notify.success('Hooray! We found totalHits images');
     }
@@ -49,13 +51,13 @@ function onLoadMore(hits) {
     return;
   }
 
-  API.fetchImages().then((hits) => {
+  API.fetchImages().then(hits => {
     if (hits.length === 0) {
-       Notify.info(
-         'We are sorry, but you have reached the end of search results.'
-       );
+      Notify.info(
+        'We are sorry, but you have reached the end of search results.'
+      );
     }
-    appendPicturesMarkup(hits)
+    appendPicturesMarkup(hits);
   });
 }
 
