@@ -35,7 +35,7 @@ function onSearch(e) {
   API.resetPage();
   API.fetchImages().then(hits => {
 
-    removeHiddenBtn();
+    removeClassHiddenBtn();
     if (hits.length === 0) {
       clearMarkup();
       Notify.failure(
@@ -72,14 +72,14 @@ function appendPicturesMarkup(hits) {
 
 function clearMarkup() {
   refs.galleryList.innerHTML = '';
-  addHiddenBtn();
+  addClassHiddenBtn();
 }
 
-function addHiddenBtn() {
+function addClassHiddenBtn() {
   refs.buttonLoadMore.classList.add('visually-hidden');
 }
 
-function removeHiddenBtn() {
+function removeClassHiddenBtn() {
   refs.buttonLoadMore.classList.remove('visually-hidden');
 }
 
