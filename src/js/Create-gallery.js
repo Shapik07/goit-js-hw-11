@@ -34,7 +34,10 @@ function onSearch(e) {
 
   API.resetPage();
   API.fetchImages().then(hits => {
+
+    removeHiddenBtn();
     if (hits.length === 0) {
+      clearMarkup();
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
@@ -43,7 +46,6 @@ function onSearch(e) {
     }
 
     appendPicturesMarkup(hits);
-    hiddenBtn()
   });
 }
 
@@ -54,6 +56,7 @@ function onLoadMore(hits) {
 
   API.fetchImages().then(hits => {
     if (hits.length === 0) {
+      
       Notify.info(
         'We are sorry, but you have reached the end of search results.'
       );
@@ -69,9 +72,14 @@ function appendPicturesMarkup(hits) {
 
 function clearMarkup() {
   refs.galleryList.innerHTML = '';
+  addHiddenBtn();
+}
+
+function addHiddenBtn() {
   refs.buttonLoadMore.classList.add('visually-hidden');
 }
 
-function hiddenBtn() {
+function removeHiddenBtn() {
   refs.buttonLoadMore.classList.remove('visually-hidden');
 }
+
