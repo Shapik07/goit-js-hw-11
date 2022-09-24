@@ -43,6 +43,7 @@ function onSearch(e) {
     }
 
     appendPicturesMarkup(hits);
+    hiddenBtn()
   });
 }
 
@@ -68,4 +69,9 @@ function appendPicturesMarkup(hits) {
 
 function clearMarkup() {
   refs.galleryList.innerHTML = '';
+  refs.buttonLoadMore.classList.add('visually-hidden');
+}
+
+function hiddenBtn() {
+  refs.buttonLoadMore.classList.remove('visually-hidden');
 }
