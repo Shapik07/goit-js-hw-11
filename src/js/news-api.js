@@ -15,7 +15,6 @@ export default class NewsApiService {
     );
 
     if (response.status === 200) {
-      console.log(response.data);
       return response.data.hits;
     } else {
       throw new Error(response.statusText);
